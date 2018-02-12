@@ -1,0 +1,3 @@
+snt_immobilier_homepage:
+    path:     /
+    defaults: { _controller: SNTImmobilierBundle:Default:index }
