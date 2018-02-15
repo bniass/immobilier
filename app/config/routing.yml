@@ -2,6 +2,7 @@ snt_immobilier:
     resource: "@SNTImmobilierBundle/Resources/config/routing.yml"
     prefix:   /
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+snt_immobilier_bien:
+    resource: "@SNTImmobilierBundle/Controller/FrontController.php"
+    type:     annotation
+
