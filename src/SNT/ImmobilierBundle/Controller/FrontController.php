@@ -25,11 +25,51 @@ class FrontController extends Controller
 
         $selectType = 0;
         $selectLocalite = 0;
-        $prix = "";
+        $prix = 0;
+        $repositoryBien = $this->getDoctrine()->getManager()
+            ->getRepository('SNTImmobilierBundle:Bien');
+            $message = "";
         if ($request->isMethod('POST')) {
             $selectLocalite = $request->get('localiteselect');
             $selectType = $request->get('typeselect');
             $prix = $request->get('prix');
+
+            $repositoryBien = $this->getDoctrine()->getManager()
+            ->getRepository('SNTImmobilierBundle:Bien');
+
+            $biens = $repositoryBien->findBiens($selectType, $selectLocalite, $prix);
+            //var_dump($biens[0]->getImages());
+            //var_dump($biens);
+
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $biens, 
+                $request->query->getInt('page', 1)/*page number*/,
+                2/*limit per page*/
+            );
+            $message = count($biens) == 0?"Pas bien":"";
+        }
+        else if($request->isMethod('GET')){
+            if($request->get('page') != ""){
+                echo "ici";
+                $biens = $repositoryBien->findBiens($selectType, $selectLocalite, $prix);
+                $paginator  = $this->get('knp_paginator');
+                $pagination = $paginator->paginate(
+                    $biens, 
+                    $request->query->getInt('page', $request->get('page'))/*page number*/,
+                    2/*limit per page*/
+                );
+                $message = count($biens) == 0?"Pas bien":"";
+            }
+            else{
+                $paginator  = $this->get('knp_paginator');
+                $pagination = $paginator->paginate(
+                    array(), 
+                    $request->query->getInt('page', $request->get('page'))/*page number*/,
+                    2/*limit per page*/
+                ); 
+                $message = "";
+            }
         }
         
    
@@ -38,7 +78,9 @@ class FrontController extends Controller
             'types'=>$types,
             'loc'=>$selectLocalite,
             'typeBien'=>$selectType,
-            'prix'=>$prix
+            'prix'=>$prix,
+            'biens'=>$pagination,
+            'message'=>$message
         ));
     }
 

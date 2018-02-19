@@ -66,7 +66,12 @@ class Image
      */
     public function getImage()
     {
-        return $this->image;
+        return base64_encode(stream_get_contents($this->image));
+    }
+
+    public function __toString()
+    {
+        return base64_encode(stream_get_contents($this->image));
     }
 
     /**

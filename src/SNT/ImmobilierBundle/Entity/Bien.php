@@ -4,6 +4,7 @@ namespace SNT\ImmobilierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Bien
  *
@@ -54,7 +55,7 @@ class Bien
 
    * @ORM\ManyToOne(targetEntity="SNT\ImmobilierBundle\Entity\Bien")
 
-   * @ORM\JoinColumn(nullable=true)
+   *  @ORM\JoinColumn(name="bien_parent_id", referencedColumnName="id", nullable=true)
 
    */
    private $bienParent;
@@ -198,7 +199,7 @@ class Bien
      *
      * @return Bien
      */
-    public function setBienParent(\SNT\ImmobierBundle\Entity\Bien $bienParent = null)
+    public function setBienParent($bienParent = null)
     {
         $this->bienParent = $bienParent;
 
@@ -222,7 +223,7 @@ class Bien
      *
      * @return Bien
      */
-    public function setLocalite(\SNT\ImmobierBundle\Entity\Localite $localite)
+    public function setLocalite($localite)
     {
         $this->localite = $localite;
 
@@ -246,7 +247,7 @@ class Bien
      *
      * @return Bien
      */
-    public function setTypeBien(\SNT\ImmobierBundle\Entity\TypeBien $typeBien)
+    public function setTypeBien($typeBien)
     {
         $this->typeBien = $typeBien;
 
@@ -277,7 +278,7 @@ class Bien
      *
      * @return Bien
      */
-    public function addImage(\SNT\ImmobierBundle\Entity\Image $image)
+    public function addImage($image)
     {
         $this->images[] = $image;
 
@@ -289,7 +290,7 @@ class Bien
      *
      * @param \SNT\ImmobierBundle\Entity\Image $image
      */
-    public function removeImage(\SNT\ImmobierBundle\Entity\Image $image)
+    public function removeImage($image)
     {
         $this->images->removeElement($image);
     }
