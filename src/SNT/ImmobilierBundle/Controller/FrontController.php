@@ -72,7 +72,7 @@ class FrontController extends Controller
             }
         }
         
-   
+        // j'ai ajouter un commentaire
         return $this->render('SNTImmobilierBundle:Front:search_bien.html.twig', array(
             'localites'=>$localites ,
             'types'=>$types,
